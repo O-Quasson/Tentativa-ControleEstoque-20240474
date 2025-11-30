@@ -1,0 +1,62 @@
+O desafio consiste em estender a API REST de controle de estoque existente para incorporar um novo módulo de Vendas, exigindo a criação de novas entidades e a implementação de lógica de negócios crucial: a baixa automática do estoque após o registro de uma venda.
+
+1. Requisitos de Implementação
+Você deverá adicionar as seguintes funcionalidades e respeitar os relacionamentos descritos:
+
+A. Modelagem de Entidades e Relacionamentos
+Crie as entidades necessárias e configure os seguintes relacionamentos em sua aplicação Spring Boot:
+
+Cliente : Entidade para registrar as informações básicas do cliente (nome, email, etc.).
+
+Venda : Entidade para representar a transação de venda.
+
+Relacionamento Cliente com Venda (1:n): Um Cliente pode ter múltiplas Vendas.
+
+Relacionamento Venda com Produto (n:m - Tabela Intermediária): Uma Venda pode conter vários Produtos, e um Produto pode estar em várias Vendas. 
+A tabela intermediária, que geralmente é chamada de ItensVendas, deve conter, além das chaves estrangeiras, a quantidade vendida e o preço unitário do produto no momento da venda.
+
+B. Lógica de Negócios e Endpoints
+Implemente os seguintes Endpoints REST e a lógica associada:
+
+Endpoints CRUD para Cliente:
+
+Permitir a criação, leitura, atualização e exclusão de clientes.
+
+Endpoint de Registro de Venda:
+
+Crie um endpoint POST /api/vendas (ou similar) que receba os dados da venda, 
+incluindo o ID do cliente e uma lista de itens de venda (com ID do produto e quantidade).
+
+Lógica Crítica de Estoque: Ao processar o registro da venda, sua aplicação deve:
+
+Verificar a Disponibilidade: Para cada item de venda, checar se a quantidade desejada é menor ou igual à quantidade disponível no Estoque do Produto (relacionamento 1:1 já existente).
+
+Dar Baixa no Estoque: Se houver estoque suficiente, a quantidade vendida deve ser subtraída do estoque do produto correspondente.
+
+Tratamento de Erros: Se a quantidade em estoque for insuficiente para qualquer item da venda, a transação deve ser revertida (rollback), e uma resposta de erro (HTTP 400 Bad Request ou similar) deve ser retornada, informando qual produto tem estoque insuficiente.
+
+
+
+Requisitos de Entrega
+Você deverá entregar os seguintes itens:
+
+Link do Repositório GitHub: O repositório deve conter o código-fonte completo da aplicação Spring Boot, incluindo as novas entidades, controllers, services e a lógica de estoque. 
+O arquivo README.md deve conter instruções claras de como inicializar e testar a API (e.g., dependências necessárias e comandos de execução).
+
+O nome do repositório deverá o seguinte padrão: ControleEstoque-<seu_rm>.
+
+Vídeo Demonstrativo (Máximo 3 Minutos):
+
+Início: O vídeo deve começar com uma breve apresentação facial do aluno.
+
+Conteúdo: Demonstre as funcionalidades das APIs. É crucial mostrar:
+
+A criação de um novo Cliente.
+
+A consulta do Estoque de um produto antes da venda.
+
+O registro de uma nova Venda que consuma o estoque, demonstrando a baixa correta.
+
+A tentativa de registrar uma Venda com quantidade insuficiente em estoque, mostrando a resposta de erro e o rollback (o estoque não deve ser alterado).
+
+A demonstração dos endpoints de consulta para as novas entidades (Cliente e Venda).
