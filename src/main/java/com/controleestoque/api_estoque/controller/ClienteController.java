@@ -17,7 +17,7 @@ public class ClienteController {
     //viado, essa porra tá tão na cara que é um ctrl+c ctrl+v dos controllers do fornecedor que chega a ser cômico
     //foda, eu nem sei como faz essa porra mesmo, vai ser assim mesmo
     //me recuso a pedir ajuda pra ia
-    private ClienteRepository clienteRepository;
+    private final ClienteRepository clienteRepository;
 
     @GetMapping
     public List<Cliente> getAllClientes() {
